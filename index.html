@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Roupas BOPE para Club Cooee — acesse diretamente as roupas no jogo.">
+  <title>BOPE • Club Cooee</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#050608;
+      --panel:#0d1014;
+      --panel2:#12161b;
+      --red:#ff2029;
+      --red2:#a90009;
+      --white:#f5f5f5;
+      --muted:#a9afb7;
+      --line:rgba(255,255,255,.11);
+      --blue:#32c9ff;
+      --pink:#ff63df;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      color:var(--white);
+      background:
+        radial-gradient(circle at 50% -10%,rgba(255,25,35,.20),transparent 35%),
+        linear-gradient(180deg,#07080b 0%,#030405 100%);
+      font-family:Inter,Arial,sans-serif;
+    }
+    a{text-decoration:none;color:inherit}
+    .nav{
+      position:sticky;top:0;z-index:20;
+      display:flex;align-items:center;justify-content:space-between;
+      min-height:72px;padding:12px 5%;
+      background:rgba(3,4,6,.88);backdrop-filter:blur(12px);
+      border-bottom:1px solid var(--line);
+    }
+    .brand{
+      font-family:Orbitron,sans-serif;font-weight:800;letter-spacing:1px;
+      font-size:22px;
+    }
+    .brand span{color:var(--red)}
+    .navlinks{display:flex;gap:24px;color:#d8dbe0;font-weight:700;font-size:14px}
+    .navlinks a:hover{color:#fff}
+    .topbtn{
+      background:linear-gradient(135deg,#ff343b,#b40009);
+      padding:12px 18px;border-radius:10px;font-weight:800;
+      box-shadow:0 8px 25px rgba(255,20,30,.2);
+    }
+    .hero{padding:24px 4% 0}
+    .hero img{
+      display:block;width:100%;max-width:1500px;height:auto;margin:auto;
+      border-radius:18px;border:1px solid rgba(255,255,255,.12);
+      box-shadow:0 25px 70px rgba(0,0,0,.6),0 0 50px rgba(255,0,20,.08);
+    }
+    .intro{
+      text-align:center;max-width:850px;margin:38px auto 25px;padding:0 20px;
+    }
+    .eyebrow{color:var(--red);font-weight:800;letter-spacing:3px;font-size:12px}
+    h1{
+      font-family:Orbitron,sans-serif;font-size:clamp(28px,5vw,52px);
+      margin:10px 0 12px;
+    }
+    .intro p{color:var(--muted);line-height:1.7;margin:0}
+    .grid{
+      width:min(1150px,92%);margin:35px auto 70px;
+      display:grid;grid-template-columns:repeat(2,1fr);gap:22px;
+    }
+    .card{
+      position:relative;overflow:hidden;
+      background:linear-gradient(145deg,rgba(22,26,32,.96),rgba(8,10,13,.98));
+      border:1px solid var(--line);border-radius:18px;padding:25px;
+      transition:.25s ease;
+    }
+    .card:hover{transform:translateY(-5px);border-color:rgba(255,32,41,.55);box-shadow:0 18px 45px rgba(0,0,0,.4)}
+    .card.m{border-top:2px solid var(--blue)}
+    .card.f{border-top:2px solid var(--pink)}
+    .tag{font-size:12px;font-weight:800;letter-spacing:2px;color:#aeb5be}
+    .card h2{font-family:Orbitron,sans-serif;margin:8px 0 8px;font-size:23px}
+    .card p{color:var(--muted);font-size:14px;line-height:1.6}
+    .buttons{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px}
+    .btn{
+      display:flex;align-items:center;justify-content:center;gap:8px;
+      min-height:48px;border-radius:10px;font-weight:800;font-size:14px;
+      border:1px solid rgba(255,255,255,.12);background:#191d23;
+      transition:.2s;
+    }
+    .btn:hover{filter:brightness(1.15);transform:translateY(-1px)}
+    .btn.primary{background:linear-gradient(135deg,#ff3038,#b30009);border-color:#ff444b}
+    .steps{
+      width:min(1150px,92%);margin:0 auto 60px;
+      display:grid;grid-template-columns:repeat(3,1fr);gap:15px;
+    }
+    .step{padding:20px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.025)}
+    .step strong{display:block;margin-bottom:7px}
+    .step span{color:var(--muted);font-size:13px;line-height:1.5}
+    footer{border-top:1px solid var(--line);padding:28px 5%;text-align:center;color:#777;font-size:12px}
+    @media(max-width:760px){
+      .navlinks{display:none}
+      .topbtn{font-size:12px;padding:10px 12px}
+      .hero{padding:12px 3% 0}
+      .hero img{border-radius:10px}
+      .grid,.steps{grid-template-columns:1fr}
+      .buttons{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <a class="brand" href="#">BOPE <span>•</span> COOEE</a>
+    <nav class="navlinks">
+      <a href="#roupas">ROUPAS</a>
+      <a href="#como-usar">COMO USAR</a>
+    </nav>
+    <a class="topbtn" href="https://www.clubcooee.com/" target="_blank" rel="noopener">ENTRAR NO CLUB COOEE</a>
+  </header>
+
+  <main>
+    <section class="hero">
+      <img src="bope-preview.png" alt="Prévia das roupas BOPE no Club Cooee">
+    </section>
+
+    <section class="intro" id="roupas">
+      <div class="eyebrow">ROUPAS BOPE • CLUB COOEE</div>
+      <h1>Escolha sua roupa</h1>
+      <p>Clique na opção desejada para abrir diretamente o link da roupa no Club Cooee.</p>
+    </section>
+
+    <section class="grid">
+      <article class="card m">
+        <div class="tag">MASCULINO</div>
+        <h2>👕 Camisa BOPE</h2>
+        <p>Camisa masculina do uniforme BOPE.</p>
+        <div class="buttons">
+          <a class="btn primary" href="COLOQUE_AQUI_O_LINK_DA_CAMISA_MASCULINA" target="_blank" rel="noopener">🔗 ABRIR ROUPA</a>
+          <a class="btn" href="COLOQUE_AQUI_O_LINK_DA_CAMISA_MASCULINA" target="_blank" rel="noopener">ENTRAR NO JOGO</a>
+        </div>
+      </article>
+
+      <article class="card m">
+        <div class="tag">MASCULINO</div>
+        <h2>👖 Calça BOPE</h2>
+        <p>Calça masculina do uniforme BOPE.</p>
+        <div class="buttons">
+          <a class="btn primary" href="COLOQUE_AQUI_O_LINK_DA_CALCA_MASCULINA" target="_blank" rel="noopener">🔗 ABRIR ROUPA</a>
+          <a class="btn" href="COLOQUE_AQUI_O_LINK_DA_CALCA_MASCULINA" target="_blank" rel="noopener">ENTRAR NO JOGO</a>
+        </div>
+      </article>
+
+      <article class="card f">
+        <div class="tag">FEMININO</div>
+        <h2>👕 Camisa BOPE</h2>
+        <p>Camisa feminina do uniforme BOPE.</p>
+        <div class="buttons">
+          <a class="btn primary" href="COLOQUE_AQUI_O_LINK_DA_CAMISA_FEMININA" target="_blank" rel="noopener">🔗 ABRIR ROUPA</a>
+          <a class="btn" href="COLOQUE_AQUI_O_LINK_DA_CAMISA_FEMININA" target="_blank" rel="noopener">ENTRAR NO JOGO</a>
+        </div>
+      </article>
+
+      <article class="card f">
+        <div class="tag">FEMININO</div>
+        <h2>👖 Calça BOPE</h2>
+        <p>Calça feminina do uniforme BOPE.</p>
+        <div class="buttons">
+          <a class="btn primary" href="COLOQUE_AQUI_O_LINK_DA_CALCA_FEMININA" target="_blank" rel="noopener">🔗 ABRIR ROUPA</a>
+          <a class="btn" href="COLOQUE_AQUI_O_LINK_DA_CALCA_FEMININA" target="_blank" rel="noopener">ENTRAR NO JOGO</a>
+        </div>
+      </article>
+    </section>
+
+    <section class="steps" id="como-usar">
+      <div class="step"><strong>01 • Escolha</strong><span>Selecione camisa ou calça e o modelo masculino ou feminino.</span></div>
+      <div class="step"><strong>02 • Clique</strong><span>O botão abre o endereço da roupa em uma nova aba.</span></div>
+      <div class="step"><strong>03 • Use no jogo</strong><span>Se o link for um deep link compatível com o Club Cooee, ele poderá abrir o conteúdo diretamente no jogo.</span></div>
+    </section>
+  </main>
+
+  <footer>
+    BOPE • Club Cooee — página de acesso às roupas. Os links das roupas são configurados pelo administrador.
+  </footer>
+</body>
+</html>
