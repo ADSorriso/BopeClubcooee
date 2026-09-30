@@ -52,6 +52,68 @@
       box-shadow:0 8px 25px rgba(255,20,30,.2);
     }
     .hero{padding:24px 4% 0}
+
+    .police-light{
+      position:absolute;
+      z-index:3;
+      top:-30%;
+      width:42%;
+      height:160%;
+      pointer-events:none;
+      filter:blur(28px);
+      opacity:.25;
+      mix-blend-mode:screen;
+      animation:policePulse 1.5s ease-in-out infinite;
+    }
+    .red-light{
+      left:-18%;
+      background:radial-gradient(ellipse,#ff0018 0%,rgba(255,0,20,.55) 25%,transparent 70%);
+      transform:rotate(13deg);
+    }
+    .blue-light{
+      right:-18%;
+      background:radial-gradient(ellipse,#006dff 0%,rgba(0,100,255,.55) 25%,transparent 70%);
+      transform:rotate(-13deg);
+      animation-delay:.75s;
+    }
+    .scanline{
+      position:absolute;
+      z-index:4;
+      top:0;
+      left:-20%;
+      width:12%;
+      height:100%;
+      pointer-events:none;
+      background:linear-gradient(90deg,transparent,rgba(255,255,255,.13),transparent);
+      transform:skewX(-18deg);
+      animation:scan 5s linear infinite;
+    }
+    .neon-glow{
+      position:absolute;
+      z-index:2;
+      inset:0;
+      pointer-events:none;
+      border-radius:inherit;
+      box-shadow:inset 0 0 35px rgba(255,0,25,.22), inset 0 0 65px rgba(0,80,255,.12);
+      animation:neonBorder 2.2s ease-in-out infinite;
+    }
+    @keyframes policePulse{
+      0%,100%{opacity:.13;transform:scale(.85) rotate(13deg)}
+      50%{opacity:.5;transform:scale(1.08) rotate(13deg)}
+    }
+    .blue-light{animation-name:bluePulse}
+    @keyframes bluePulse{
+      0%,100%{opacity:.13;transform:scale(.85) rotate(-13deg)}
+      50%{opacity:.5;transform:scale(1.08) rotate(-13deg)}
+    }
+    @keyframes scan{
+      0%{left:-25%}
+      100%{left:125%}
+    }
+    @keyframes neonBorder{
+      0%,100%{box-shadow:inset 0 0 25px rgba(255,0,25,.14),inset 0 0 45px rgba(0,80,255,.08)}
+      50%{box-shadow:inset 0 0 45px rgba(255,0,25,.3),inset 0 0 75px rgba(0,100,255,.18)}
+    }
     .hero-banner{
       position:relative;
       width:100%;
@@ -72,6 +134,7 @@
       object-position:center;
     }
     .hero-overlay{
+      z-index:5;
       position:absolute;
       inset:0;
       display:flex;
@@ -99,6 +162,7 @@
       transition:.2s;
     }
     .overlay-btn:hover,.overlay-btn.active{
+      box-shadow:0 0 16px rgba(255,25,40,.55), 0 0 32px rgba(255,25,40,.18);
       background:linear-gradient(135deg,#ff3038,#a90009);
       border-color:#ff555c;
       transform:translateY(-2px);
@@ -144,6 +208,7 @@
       backdrop-filter:blur(7px);
     }
     .hero-btn.primary{
+      box-shadow:0 0 18px rgba(255,25,40,.45);
       background:linear-gradient(135deg,#ff3038,#a90009);
       border-color:#ff454c;
     }
@@ -199,7 +264,69 @@
     footer{border-top:1px solid var(--line);padding:28px 5%;text-align:center;color:#777;font-size:12px}
     @media(max-width:760px){
       .hero{padding:10px 2.5% 0}
-      .hero-banner{border-radius:12px}
+  
+    .police-light{
+      position:absolute;
+      z-index:3;
+      top:-30%;
+      width:42%;
+      height:160%;
+      pointer-events:none;
+      filter:blur(28px);
+      opacity:.25;
+      mix-blend-mode:screen;
+      animation:policePulse 1.5s ease-in-out infinite;
+    }
+    .red-light{
+      left:-18%;
+      background:radial-gradient(ellipse,#ff0018 0%,rgba(255,0,20,.55) 25%,transparent 70%);
+      transform:rotate(13deg);
+    }
+    .blue-light{
+      right:-18%;
+      background:radial-gradient(ellipse,#006dff 0%,rgba(0,100,255,.55) 25%,transparent 70%);
+      transform:rotate(-13deg);
+      animation-delay:.75s;
+    }
+    .scanline{
+      position:absolute;
+      z-index:4;
+      top:0;
+      left:-20%;
+      width:12%;
+      height:100%;
+      pointer-events:none;
+      background:linear-gradient(90deg,transparent,rgba(255,255,255,.13),transparent);
+      transform:skewX(-18deg);
+      animation:scan 5s linear infinite;
+    }
+    .neon-glow{
+      position:absolute;
+      z-index:2;
+      inset:0;
+      pointer-events:none;
+      border-radius:inherit;
+      box-shadow:inset 0 0 35px rgba(255,0,25,.22), inset 0 0 65px rgba(0,80,255,.12);
+      animation:neonBorder 2.2s ease-in-out infinite;
+    }
+    @keyframes policePulse{
+      0%,100%{opacity:.13;transform:scale(.85) rotate(13deg)}
+      50%{opacity:.5;transform:scale(1.08) rotate(13deg)}
+    }
+    .blue-light{animation-name:bluePulse}
+    @keyframes bluePulse{
+      0%,100%{opacity:.13;transform:scale(.85) rotate(-13deg)}
+      50%{opacity:.5;transform:scale(1.08) rotate(-13deg)}
+    }
+    @keyframes scan{
+      0%{left:-25%}
+      100%{left:125%}
+    }
+    @keyframes neonBorder{
+      0%,100%{box-shadow:inset 0 0 25px rgba(255,0,25,.14),inset 0 0 45px rgba(0,80,255,.08)}
+      50%{box-shadow:inset 0 0 45px rgba(255,0,25,.3),inset 0 0 75px rgba(0,100,255,.18)}
+    }
+    .hero-banner{border-radius:12px}
       .hero-banner > img{min-height:620px;object-position:center}
       .hero-overlay{padding:12px;justify-content:space-between}
       .hero-top{gap:6px}
