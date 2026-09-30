@@ -52,6 +52,104 @@
       box-shadow:0 8px 25px rgba(255,20,30,.2);
     }
     .hero{padding:24px 4% 0}
+    .hero-banner{
+      position:relative;
+      width:100%;
+      max-width:1500px;
+      margin:auto;
+      overflow:hidden;
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,.14);
+      box-shadow:0 25px 70px rgba(0,0,0,.6),0 0 50px rgba(255,0,20,.08);
+      background:#050608;
+    }
+    .hero-banner > img{
+      display:block;
+      width:100%;
+      height:auto;
+      min-height:520px;
+      object-fit:cover;
+      object-position:center;
+    }
+    .hero-overlay{
+      position:absolute;
+      inset:0;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      padding:22px;
+      background:linear-gradient(180deg,rgba(0,0,0,.72) 0%,rgba(0,0,0,.12) 38%,rgba(0,0,0,.80) 100%);
+    }
+    .hero-top{
+      display:flex;
+      justify-content:center;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+    .overlay-btn{
+      padding:11px 18px;
+      border:1px solid rgba(255,255,255,.25);
+      border-radius:8px;
+      background:rgba(5,7,9,.72);
+      backdrop-filter:blur(8px);
+      color:#fff;
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:1px;
+      transition:.2s;
+    }
+    .overlay-btn:hover,.overlay-btn.active{
+      background:linear-gradient(135deg,#ff3038,#a90009);
+      border-color:#ff555c;
+      transform:translateY(-2px);
+    }
+    .hero-content{
+      max-width:620px;
+      padding:20px 12px 15px;
+      text-align:left;
+      text-shadow:0 3px 18px #000;
+    }
+    .hero-kicker{
+      color:#ff4b52;
+      font-size:12px;
+      font-weight:900;
+      letter-spacing:3px;
+      margin-bottom:7px;
+    }
+    .hero-content h1{
+      font-family:Orbitron,sans-serif;
+      font-size:clamp(44px,8vw,92px);
+      line-height:.9;
+      margin:0 0 12px;
+      letter-spacing:4px;
+    }
+    .hero-content p{
+      margin:0 0 18px;
+      color:#e2e4e8;
+      font-size:15px;
+    }
+    .hero-actions{display:flex;gap:10px;flex-wrap:wrap}
+    .hero-btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:46px;
+      padding:0 18px;
+      border-radius:9px;
+      background:rgba(10,12,15,.82);
+      border:1px solid rgba(255,255,255,.22);
+      font-size:12px;
+      font-weight:900;
+      letter-spacing:.5px;
+      backdrop-filter:blur(7px);
+    }
+    .hero-btn.primary{
+      background:linear-gradient(135deg,#ff3038,#a90009);
+      border-color:#ff454c;
+    }
+    .hero-btn:hover{filter:brightness(1.15)}
+
+
     .hero img{
       display:block;width:100%;max-width:1500px;height:auto;margin:auto;
       border-radius:18px;border:1px solid rgba(255,255,255,.12);
@@ -100,6 +198,18 @@
     .step span{color:var(--muted);font-size:13px;line-height:1.5}
     footer{border-top:1px solid var(--line);padding:28px 5%;text-align:center;color:#777;font-size:12px}
     @media(max-width:760px){
+      .hero{padding:10px 2.5% 0}
+      .hero-banner{border-radius:12px}
+      .hero-banner > img{min-height:620px;object-position:center}
+      .hero-overlay{padding:12px;justify-content:space-between}
+      .hero-top{gap:6px}
+      .overlay-btn{padding:9px 11px;font-size:10px}
+      .hero-content{padding:10px 5px 8px}
+      .hero-content h1{font-size:54px}
+      .hero-content p{font-size:13px}
+      .hero-actions{display:grid;grid-template-columns:1fr;width:100%}
+      .hero-btn{width:100%}
+
       .navlinks{display:none}
       .topbtn{font-size:12px;padding:10px 12px}
       .hero{padding:12px 3% 0}
@@ -121,7 +231,26 @@
 
   <main>
     <section class="hero">
-      <img src="bope-preview.png" alt="Prévia das roupas BOPE no Club Cooee">
+      <div class="hero-banner">
+        <img src="bope-preview.png" alt="BOPE Club Cooee">
+        <div class="hero-overlay">
+          <div class="hero-top">
+            <a href="#roupas" class="overlay-btn active">ROUPAS</a>
+            <a href="#aprendiz" class="overlay-btn">APRENDIZ</a>
+            <a href="#oficial" class="overlay-btn">OFICIAL</a>
+          </div>
+
+          <div class="hero-content">
+            <div class="hero-kicker">CLUB COOEE • UNIFORME OFICIAL</div>
+            <h1>BOPE</h1>
+            <p>Escolha seu uniforme e entre diretamente no jogo.</p>
+            <div class="hero-actions">
+              <a href="#aprendiz" class="hero-btn primary">VER KIT APRENDIZ</a>
+              <a href="#oficial" class="hero-btn">VER KIT OFICIAL</a>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <section class="intro" id="roupas">
@@ -130,9 +259,9 @@
       <p>Clique na opção desejada para abrir diretamente o link da roupa no Club Cooee.</p>
     </section>
 
-    <section class="grid">
+    <section class="grid" id="aprendiz">
       <article class="card m">
-        <div class="tag">MASCULINO</div>
+        <div class="tag">KIT APRENDIZ • MASCULINO</div>
         <h2>👕 Camisa BOPE</h2>
         <p>Camisa masculina do uniforme BOPE.</p>
         <div class="buttons">
@@ -142,7 +271,7 @@
       </article>
 
       <article class="card m">
-        <div class="tag">MASCULINO</div>
+        <div class="tag">KIT APRENDIZ • MASCULINO</div>
         <h2>👖 Calça BOPE</h2>
         <p>Calça masculina do uniforme BOPE.</p>
         <div class="buttons">
@@ -152,7 +281,7 @@
       </article>
 
       <article class="card f">
-        <div class="tag">FEMININO</div>
+        <div class="tag">KIT APRENDIZ • FEMININO</div>
         <h2>👕 Camisa BOPE</h2>
         <p>Camisa feminina do uniforme BOPE.</p>
         <div class="buttons">
@@ -162,7 +291,7 @@
       </article>
 
       <article class="card f">
-        <div class="tag">FEMININO</div>
+        <div class="tag">KIT APRENDIZ • FEMININO</div>
         <h2>👖 Calça BOPE</h2>
         <p>Calça feminina do uniforme BOPE.</p>
         <div class="buttons">
@@ -170,6 +299,12 @@
           <a class="btn" href="https://pt.clubcooee.com/market/shop?query=Cal%C3%A7a+cortada&cat=cloth&catsub=none&col1=0&gender=female&special=none&shopid=124&sort=best" target="_blank" rel="noopener">ENTRAR NO JOGO</a>
         </div>
       </article>
+    </section>
+
+    <section class="intro" id="oficial" style="margin-top:10px">
+      <div class="eyebrow">EM BREVE</div>
+      <h1>Kit Oficial</h1>
+      <p>Os links das peças oficiais podem ser adicionados aqui quando você me enviar.</p>
     </section>
 
     <section class="steps" id="como-usar">
