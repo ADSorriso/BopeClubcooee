@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Roupas BOPE para Club Cooee — acesse diretamente as roupas no jogo.">
+  <title>BOPE • Club Cooee</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --red:#ff2029;
+      --red2:#a90009;
+      --white:#f5f5f5;
+      --line:rgba(255,255,255,.11);
+      --blue:#32c9ff;
+      --pink:#ff63df;
+    }
+    *{box-sizing:border-box; margin:0; padding:0;}
+    html, body{
+      height:100%;
+      overflow:hidden;
+      background:#050608;
+      font-family:Inter,Arial,sans-serif;
+      color:var(--white);
+    }
+
+    /* ===== PALCO PRINCIPAL (TELA CHEIA) ===== */
+    .stage{
+      position:relative;
+      width:100vw;
+      height:100vh;
+      overflow:hidden;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    /* A imagem de fundo ocupa toda a tela */
+    .stage-bg{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      object-position:center;
+      z-index:0;
+      user-select:none;
+      pointer-events:none;
+    }
+
+    /* Camada de efeitos neon sobre a imagem */
+    .stage-effects{
+      position:absolute;
+      inset:0;
+      z-index:1;
+      pointer-events:none;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(255,25,35,.18), transparent 40%),
+        linear-gradient(180deg, rgba(0,0,0,.45) 0%, transparent 30%, transparent 70%, rgba(0,0,0,.55) 100%);
+    }
+
+    /* ===== OVERLAY DE BOTÕES ===== */
+    .hotspots{
+      position:absolute;
+      inset:0;
+      z-index:2;
+      display:grid;
+      /* Grid baseado na proporção da imagem original (1536x1024 ≈ 3:2) */
+      grid-template-columns: repeat(12, 1fr);
+      grid-template-rows: repeat(10, 1fr);
+      pointer-events:none;
+    }
+
+    /* Cada hotspot é uma área clicável posicionada sobre a foto */
+    .hotspot{
+      pointer-events:auto;
+      position:relative;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-decoration:none;
+      color:#fff;
+      border-radius:6px;
+      transition: background .2s ease, box-shadow .2s ease, transform .15s ease;
+      background:rgba(255,255,255,0);
+      border:1px solid transparent;
+    }
+    .hotspot:hover{
+      background:rgba(255,255,255,.06);
+      border-color:rgba(255,255,255,.18);
+      box-shadow:0 0 20px rgba(255,32,41,.35);
+      transform:scale(1.02);
+    }
+    .hotspot:active{
+      transform:scale(.98);
+    }
+
+    /* Rótulo invisível por padrão — só aparece no hover para acessibilidade */
+    .hotspot .label{
+      opacity:0;
+      font-size:11px;
+      font-weight:800;
+      letter-spacing:.5px;
+      text-transform:uppercase;
+      text-shadow:0 2px 8px #000;
+      transition:opacity .2s;
+      white-space:nowrap;
+    }
+    .hotspot:hover .label{
+      opacity:1;
+    }
+
+    /* ===== POSIÇÕES EXATAS DOS BOTÕES NA FOTO =====
+       A foto tem 1536x1024. O grid é 12 colunas x 10 linhas.
+       Cada célula ≈ 128px largura x 102.4px altura.
+       Calculamos as posições a partir dos pixels da imagem. */
+
+    /* --- NAVEGAÇÃO SUPERIOR (Início / Roupas / Sobre / Como usar) --- */
+    .nav-inicio    { grid-area: 1 / 4 / 2 / 5; }   /* ~x:512-640, y:0-102 */
+    .nav-roupas    { grid-area: 1 / 5 / 2 / 6; }   /* ~x:640-768 */
+    .nav-sobre     { grid-area: 1 / 6 / 2 / 7; }   /* ~x:768-896 */
+    .nav-como-usar { grid-area: 1 / 7 / 2 / 8; }   /* ~x:896-1024 */
+
+    /* --- BOTÃO "ENTRAR NO CLUB COOEE" (canto superior direito) --- */
+    .btn-entrar-topo { grid-area: 1 / 10 / 2 / 13; } /* ~x:1280-1536, y:0-102 */
+
+    /* --- BOTÕES DO HERO (VER KIT APRENDIZ / VER KIT OFICIAL) --- */
+    .btn-kit-aprendiz { grid-area: 5 / 4 / 6 / 6; }  /* ~x:512-768, y:410-512 */
+    .btn-kit-oficial  { grid-area: 5 / 6 / 6 / 8; }  /* ~x:768-1024 */
+
+    /* --- BOTÕES DOS CARDS (Masculino / Feminino) ---
+       Cada card tem 2 botões: "ABRIR ROUPA" e "ENTRAR NO JOGO".
+       Na foto, os botões vermelhos ficam na parte inferior dos cards. */
+
+    /* Card Masculino — Camisa */
+    .m-camisa-abrir  { grid-area: 8 / 2 / 9 / 4; }   /* ~x:256-512, y:819-921 */
+    .m-camisa-entrar { grid-area: 8 / 4 / 9 / 5; }   /* ~x:512-640 */
+
+    /* Card Masculino — Calça */
+    .m-calca-abrir   { grid-area: 8 / 5 / 9 / 7; }   /* ~x:640-896 */
+    .m-calca-entrar  { grid-area: 8 / 7 / 9 / 8; }   /* ~x:896-1024 */
+
+    /* Card Feminino — Camisa */
+    .f-camisa-abrir  { grid-area: 8 / 8 / 9 / 10; }  /* ~x:1024-1280 */
+    .f-camisa-entrar { grid-area: 8 / 10 / 9 / 11; } /* ~x:1280-1408 */
+
+    /* Card Feminino — Calça */
+    .f-calca-abrir   { grid-area: 8 / 11 / 9 / 13; } /* ~x:1408-1536 */
+    .f-calca-entrar  { grid-area: 8 / 13 / 9 / 14; } /* fallback — ajuste se necessário */
+
+    /* --- RODAPÉ (3 passos) --- */
+    .step-1 { grid-area: 10 / 1 / 11 / 5; }
+    .step-2 { grid-area: 10 / 5 / 11 / 9; }
+    .step-3 { grid-area: 10 / 9 / 11 / 13; }
+
+    /* ===== AJUSTES RESPONSIVOS =====
+       Em telas menores, a imagem é cortada, então os hotspots
+       precisam se reposicionar proporcionalmente. */
+
+    @media (max-width: 1200px) {
+      .hotspots{ grid-template-columns: repeat(12, 1fr); grid-template-rows: repeat(10, 1fr); }
+    }
+
+    @media (max-width: 900px) {
+      .stage-bg{ object-position: center top; }
+      .hotspot .label{ font-size:9px; }
+    }
+
+    @media (max-width: 600px) {
+      .stage-bg{ object-position: 30% center; }
+      .hotspot .label{ display:none; }
+    }
+
+    /* ===== ANIMAÇÕES NEON (opcionais, sobre a imagem) ===== */
+    .police-light{
+      position:absolute;
+      z-index:1;
+      top:-30%;
+      width:42%;
+      height:160%;
+      pointer-events:none;
+      filter:blur(28px);
+      opacity:.22;
+      mix-blend-mode:screen;
+      animation:policePulse 1.5s ease-in-out infinite;
+    }
+    .red-light{
+      left:-18%;
+      background:radial-gradient(ellipse,#ff0018 0%,rgba(255,0,20,.55) 25%,transparent 70%);
+      transform:rotate(13deg);
+    }
+    .blue-light{
+      right:-18%;
+      background:radial-gradient(ellipse,#006dff 0%,rgba(0,100,255,.55) 25%,transparent 70%);
+      transform:rotate(-13deg);
+      animation-delay:.75s;
+      animation-name:bluePulse;
+    }
+    @keyframes policePulse{
+      0%,100%{opacity:.10; transform:scale(.85) rotate(13deg)}
+      50%{opacity:.40; transform:scale(1.08) rotate(13deg)}
+    }
+    @keyframes bluePulse{
+      0%,100%{opacity:.10; transform:scale(.85) rotate(-13deg)}
+      50%{opacity:.40; transform:scale(1.08) rotate(-13deg)}
+    }
+
+    .scanline{
+      position:absolute;
+      z-index:1;
+      top:0;
+      left:-20%;
+      width:12%;
+      height:100%;
+      pointer-events:none;
+      background:linear-gradient(90deg,transparent,rgba(255,255,255,.10),transparent);
+      transform:skewX(-18deg);
+      animation:scan 5s linear infinite;
+    }
+    @keyframes scan{
+      0%{left:-25%}
+      100%{left:125%}
+    }
+  </style>
+</head>
+<body>
+
+  <div class="stage">
+    <!-- Imagem de fundo (a foto inteira) -->
+    <img class="stage-bg" src="bope-preview.png" alt="BOPE Club Cooee — Uniformes Oficiais">
+
+    <!-- Efeitos neon sobre a imagem -->
+    <div class="stage-effects"></div>
+    <div class="police-light red-light"></div>
+    <div class="police-light blue-light"></div>
+    <div class="scanline"></div>
+
+    <!-- Overlay de hotspots clicáveis -->
+    <div class="hotspots">
+
+      <!-- ===== NAVEGAÇÃO SUPERIOR ===== -->
+      <a class="hotspot nav-inicio" href="#" title="Início">
+        <span class="label">Início</span>
+      </a>
+      <a class="hotspot nav-roupas" href="#roupas" title="Roupas">
+        <span class="label">Roupas</span>
+      </a>
+      <a class="hotspot nav-sobre" href="#sobre" title="Sobre">
+        <span class="label">Sobre</span>
+      </a>
+      <a class="hotspot nav-como-usar" href="#como-usar" title="Como usar">
+        <span class="label">Como usar</span>
+      </a>
+
+      <!-- Botão "ENTRAR NO CLUB COOEE" (topo direito) -->
+      <a class="hotspot btn-entrar-topo" href="https://www.clubcooee.com/" target="_blank" rel="noopener" title="Entrar no Club Cooee">
+        <span class="label">Entrar no Club Cooee</span>
+      </a>
+
+      <!-- ===== BOTÕES DO HERO ===== -->
+      <a class="hotspot btn-kit-aprendiz" href="#aprendiz" title="Ver Kit Aprendiz">
+        <span class="label">Ver Kit Aprendiz</span>
+      </a>
+      <a class="hotspot btn-kit-oficial" href="#oficial" title="Ver Kit Oficial">
+        <span class="label">Ver Kit Oficial</span>
+      </a>
+
+      <!-- ===== CARD MASCULINO — CAMISA ===== -->
+      <a class="hotspot m-camisa-abrir" href="COLOQUE_AQUI_O_LINK_DA_CAMISA_MASCULINA" target="_blank" rel="noopener" title="Abrir Camisa BOPE Masculina">
+        <span class="label">Abrir Roupa</span>
+      </a>
+      <a class="hotspot m-camisa-entrar" href="COLOQUE_AQUI_O_LINK_DA_CAMISA_MASCULINA" target="_blank" rel="noopener" title="Entrar no jogo — Camisa Masculina">
+        <span class="label">Entrar no Jogo</span>
+      </a>
+
+      <!-- ===== CARD MASCULINO — CALÇA ===== -->
+      <a class="hotspot m-calca-abrir" href="COLOQUE_AQUI_O_LINK_DA_CALCA_MASCULINA" target="_blank" rel="noopener" title="Abrir Calça BOPE Masculina">
+        <span class="label">Abrir Roupa</span>
+      </a>
+      <a class="hotspot m-calca-entrar" href="COLOQUE_AQUI_O_LINK_DA_CALCA_MASCULINA" target="_blank" rel="noopener" title="Entrar no jogo — Calça Masculina">
+        <span class="label">Entrar no Jogo</span>
+      </a>
+
+      <!-- ===== CARD FEMININO — CAMISA ===== -->
+      <a class="hotspot f-camisa-abrir" href="https://pt.clubcooee.com/market/shop?query=Camiseta+Polo&cat=cloth&catsub=none&col1=0&gender=female&special=none&shopid=124&sort=best" target="_blank" rel="noopener" title="Abrir Camisa BOPE Feminina">
+        <span class="label">Abrir Roupa</span>
+      </a>
+      <a class="hotspot f-camisa-entrar" href="https://pt.clubcooee.com/market/shop?query=Camiseta+Polo&cat=cloth&catsub=none&col1=0&gender=female&special=none&shopid=124&sort=best" target="_blank" rel="noopener" title="Entrar no jogo — Camisa Feminina">
+        <span class="label">Entrar no Jogo</span>
+      </a>
+
+      <!-- ===== CARD FEMININO — CALÇA ===== -->
+      <a class="hotspot f-calca-abrir" href="https://pt.clubcooee.com/market/shop?query=Cal%C3%A7a+cortada&cat=cloth&catsub=none&col1=0&gender=female&special=none&shopid=124&sort=best" target="_blank" rel="noopener" title="Abrir Calça BOPE Feminina">
+        <span class="label">Abrir Roupa</span>
+      </a>
+      <a class="hotspot f-calca-entrar" href="https://pt.clubcooee.com/market/shop?query=Cal%C3%A7a+cortada&cat=cloth&catsub=none&col1=0&gender=female&special=none&shopid=124&sort=best" target="_blank" rel="noopener" title="Entrar no jogo — Calça Feminina">
+        <span class="label">Entrar no Jogo</span>
+      </a>
+
+      <!-- ===== RODAPÉ — 3 PASSOS ===== -->
+      <a class="hotspot step-1" href="#" title="Clique no link">
+        <span class="label">Clique no link</span>
+      </a>
+      <a class="hotspot step-2" href="#" title="Entre no Club Cooee">
+        <span class="label">Entre no Club Cooee</span>
+      </a>
+      <a class="hotspot step-3" href="#" title="Equipe e aproveite">
+        <span class="label">Equipe e aproveite</span>
+      </a>
+
+    </div>
+  </div>
+
+</body>
+</html>
